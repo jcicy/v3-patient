@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>发消息</button>
+  <button>断开连接</button>
+  <script>
+    // 创建websocket实例对象
+    const ws = new WebSocket('wss://javascript.info/article/websocket/demo/hello')
+    // 建立连接
+    ws.onopen = () => {
+      console.log('websocket建立连接成功');
+    }
+    // 发送消息
+    let age = 20
+    document.querySelectorAll('button')[0].addEventListener('click', () => {
+      ws.send('hello i am a student!' + age ++ + '岁')
+    })
+    // 接受消息
+    ws.onmessage = (e) => {
+      console.log('接受的消息', e.data);
+    }
+
+    // 断开连接
+    document.querySelectorAll('button')[1].addEventListener('click', () => {
+      ws.close()
+    })
+
+    // 监听连接断开
+    ws.onclose = () => {
+      console.log('connection closed');
+    }
+  </script>
+</body>
+</html>
